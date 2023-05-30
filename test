@@ -4,8 +4,6 @@ pipelines:
     develop:
       - step:
           name: Deploy to develop
-          caches:
-            - node
           script:
            - mkdir -p ~/.ssh
            - cat my_known_hosts >> ~/.ssh/known_hosts
@@ -14,8 +12,6 @@ pipelines:
     staging:
       - step:
           name: Deploy to staging
-          caches:
-            - node
           script:
            - mkdir -p ~/.ssh
            - cat my_known_hosts >> ~/.ssh/known_hosts
@@ -24,8 +20,6 @@ pipelines:
     production:
       - step:
           name: Deploy to production
-          caches:
-            - node
           script:
            - mkdir -p ~/.ssh
            - cat my_known_hosts >> ~/.ssh/known_hosts
