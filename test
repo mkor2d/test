@@ -1,0 +1,33 @@
+image: node:latest
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: Deploy to develop
+          caches:
+            - node
+          script:
+           - mkdir -p ~/.ssh
+           - cat my_known_hosts >> ~/.ssh/known_hosts
+           - (umask  077 ; echo $DEV_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
+           - ssh <user>@<host> 'npm install && npm run build'
+    staging:
+      - step:
+          name: Deploy to staging
+          caches:
+            - node
+          script:
+           - mkdir -p ~/.ssh
+           - cat my_known_hosts >> ~/.ssh/known_hosts
+           - (umask  077 ; echo $STAGE_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
+           - ssh <user>@<host> 'npm install && npm run build'
+    production:
+      - step:
+          name: Deploy to production
+          caches:
+            - node
+          script:
+           - mkdir -p ~/.ssh
+           - cat my_known_hosts >> ~/.ssh/known_hosts
+           - (umask  077 ; echo $PROD_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
+           - ssh <user>@<host> 'npm install && npm run build && npm start'
