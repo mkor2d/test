@@ -17,6 +17,7 @@ pipelines:
            - cat my_known_hosts >> ~/.ssh/known_hosts
            - (umask  077 ; echo $STAGE_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
            - ssh <user>@<host> 'npm install && npm run build'
+           #test
     production:
       - step:
           name: Deploy to production
